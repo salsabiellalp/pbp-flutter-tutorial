@@ -192,10 +192,6 @@ class _MyFormPageState extends State<MyFormPage> {
                   secondary: const Icon(Icons.run_circle_outlined),
                 ),
                 TextButton(
-                  child: const Text(
-                    "Simpan",
-                    style: TextStyle(color: Colors.white),
-                  ),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue),
                   ),
@@ -209,43 +205,55 @@ class _MyFormPageState extends State<MyFormPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             elevation: 15,
-                            child: Container(
-                              child: ListView(
-                                padding:
-                                    const EdgeInsets.only(top: 20, bottom: 20),
-                                shrinkWrap: true,
-                                children: <Widget>[
-                                  const Center(child: Text('Informasi Data')),
-                                  const SizedBox(height: 20),
-                                  // TODO: Munculkan informasi yang didapat dari form
-                                  Text('Nama Lengkap: ' + _namaLengkap),
+                            child: ListView(
+                              padding:
+                                  const EdgeInsets.only(top: 20, bottom: 20),
+                              shrinkWrap: true,
+                              children: <Widget>[
+                                const Center(child: Text('Informasi Data')),
+                                const SizedBox(height: 20),
+                                // Munculkan informasi yang didapat dari form
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('Nama Lengkap: $_namaLengkap'),
 
-                                  if (jenjangDiploma)
-                                    const Text('Jenjang: Diploma')
-                                  else if (jenjangSarjana)
-                                    const Text('Jenjang: Sarjana')
-                                  else if (jenjangMagister)
-                                    const Text('Jenjang: Magister')
-                                  else if (jenjangDoktor)
-                                    const Text('Jenjang: Doktor'),
+                                    // Munculkan jenjang yang dipilih
+                                    if (jenjangDiploma)
+                                      const Text('\nJenjang: Diploma')
+                                    else if (jenjangSarjana)
+                                      const Text('\nJenjang: Sarjana')
+                                    else if (jenjangMagister)
+                                      const Text('\nJenjang: Magister')
+                                    else if (jenjangDoktor)
+                                      const Text('\nJenjang: Doktor'),
 
-                                  Text('Umur: $umur'),
-                                  Text('Kelas PBP: ' + kelasPBP),
-                                  Text('Practice Mode: $_nilaiSwitch'),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('Kembali'),
-                                  ),
-                                ],
-                              ),
+                                    Text('\nUmur: $umur'),
+                                    Text('\nKelas PBP: $kelasPBP'),
+                                    if (_nilaiSwitch)
+                                      const Text('\nPractice Mode: ON')
+                                    else
+                                      const Text('\nPractice Mode: OFF'),
+                                  ],
+                                ),
+
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Kembali'),
+                                ),
+                              ],
                             ),
                           );
                         },
                       );
                     }
                   },
+                  child: const Text(
+                    "Simpan",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
