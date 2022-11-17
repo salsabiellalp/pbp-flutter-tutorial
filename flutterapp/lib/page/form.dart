@@ -1,35 +1,69 @@
-// ignore: unused_import
 import 'package:flutterapp/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/page/to_do_page.dart';
+
 
 class MyFormPage extends StatefulWidget {
-  const MyFormPage({super.key});
+    const MyFormPage({super.key});
 
-  @override
-  State<MyFormPage> createState() => _MyFormPageState();
+    @override
+    State<MyFormPage> createState() => _MyFormPageState();
 }
 
 class _MyFormPageState extends State<MyFormPage> {
-  final _formKey = GlobalKey<FormState>();
-  String _namaLengkap = "";
+    final _formKey = GlobalKey<FormState>();
+    String _namaLengkap = "";
+    bool jenjangSarjana = false;
+    bool jenjangDiploma = false;
+    bool jenjangMagister = false;
+    bool jenjangDoktor = false;
+    double umur = 0;
+    String kelasPBP = 'A';
+    List<String> listKelasPBP = ['A', 'B', 'C', 'D', 'E', 'F', 'KI'];
+    bool _nilaiSwitch = false;
 
-  bool jenjangSarjana = false;
-  bool jenjangDiploma = false;
-  bool jenjangMagister = false;
-  bool jenjangDoktor = false;
-
-  double umur = 0;
-
-  String kelasPBP = 'A';
-  List<String> listKelasPBP = ['A', 'B', 'C', 'D', 'E', 'F', 'KI'];
-
-  bool _nilaiSwitch = false;
-
-  @override
-  Widget build(BuildContext context) {
+    @override
+    Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Form'),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            // Menambahkan clickable menu
+            ListTile(
+              title: const Text('Counter'),
+              onTap: () {
+                // Route menu ke halaman utama
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyHomePage()),
+                );
+              },
+            ),
+            ListTile(
+              title: const Text('Form'),
+              onTap: () {
+                // Route menu ke halaman form
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyFormPage()),
+                );
+              },
+            ),
+            ListTile(
+            title: const Text('To Do'),
+            onTap: () {
+                // Route menu ke halaman to do
+                Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const ToDoPage()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -214,27 +248,19 @@ class _MyFormPageState extends State<MyFormPage> {
                                 const SizedBox(height: 20),
                                 // Munculkan informasi yang didapat dari form
                                 Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('Nama Lengkap: $_namaLengkap'),
-
-                                    // Munculkan jenjang yang dipilih
-                                    if (jenjangDiploma)
-                                      const Text('\nJenjang: Diploma')
-                                    else if (jenjangSarjana)
-                                      const Text('\nJenjang: Sarjana')
-                                    else if (jenjangMagister)
-                                      const Text('\nJenjang: Magister')
-                                    else if (jenjangDoktor)
-                                      const Text('\nJenjang: Doktor'),
-
-                                    Text('\nUmur: $umur'),
-                                    Text('\nKelas PBP: $kelasPBP'),
-                                    if (_nilaiSwitch)
-                                      const Text('\nPractice Mode: ON')
-                                    else
-                                      const Text('\nPractice Mode: OFF'),
-                                  ],
+                                    children: [
+                                        Text('Judul: ' + _namaLengkap),
+                                        if (jenjangDiploma == true)
+                                            Text('Jenjang: Diploma')
+                                        else if (jenjangSarjana == true) 
+                                            Text('Jenjang: Sarjana')
+                                        else if (jenjangMagister == true) 
+                                            Text('Jenjang: Magister')
+                                        else if (jenjangDoktor == true) 
+                                            Text('Jenjang: Doktor'),
+                                        Text('Umur: $umur'),
+                                        Text('Kelas PBP: ' + kelasPBP),
+                                    ]
                                 ),
 
                                 TextButton(
